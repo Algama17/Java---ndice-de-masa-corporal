@@ -33,4 +33,34 @@ public class IMCTest {
         assertEquals("Obesidad leve", IMC.classifyIMC(32.0));
         assertEquals("Obesidad mórbida", IMC.classifyIMC(40.0));
     }
+    @Test
+    public void testEdgeCases() {
+        assertEquals("Delgadez severa", IMC.classifyIMC(15.99));
+        assertEquals("Delgadez moderada", IMC.classifyIMC(16.99));
+        assertEquals("Peso normal", IMC.classifyIMC(24.99));
+        assertEquals("Obesidad leve", IMC.classifyIMC(34.99));
+    }
+    @Test
+    public void testExtremeValues() {
+        assertEquals("Delgadez severa", IMC.classifyIMC(0.1));
+        assertEquals("Obesidad mórbida", IMC.classifyIMC(100.0));
+    }
+
+    @Test
+    public void testExtremeHeights() {
+        assertEquals(437.5, IMC.calculatePeso(70, 0.4), 0.01);
+        assertEquals(1.94, IMC.calculatePeso(70, 6.0), 0.01);
+    }
+
+    @Test
+    public void testClassifyIMCExactBoundaries() {
+        assertEquals("Delgadez severa", IMC.classifyIMC(15.99));
+        assertEquals("Delgadez moderada", IMC.classifyIMC(16.0));
+        assertEquals("Delgadez leve", IMC.classifyIMC(17.0));
+        assertEquals("Peso normal", IMC.classifyIMC(18.5));
+        assertEquals("Sobrepeso", IMC.classifyIMC(25.0));
+        assertEquals("Obesidad leve", IMC.classifyIMC(30.0));
+        assertEquals("Obesidad moderada", IMC.classifyIMC(35.0));
+        assertEquals("Obesidad mórbida", IMC.classifyIMC(40.0));
+    }
 }
