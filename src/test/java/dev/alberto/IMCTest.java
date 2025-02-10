@@ -2,6 +2,12 @@ package dev.alberto;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
@@ -62,5 +68,23 @@ public class IMCTest {
         assertEquals("Obesidad leve", IMC.classifyIMC(30.0));
         assertEquals("Obesidad moderada", IMC.classifyIMC(35.0));
         assertEquals("Obesidad mórbida", IMC.classifyIMC(40.0));
+    }
+    @Test
+    public void testMainMethod() {
+        String input = "70\n1.70\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        System.setIn(in);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        IMC.main(new String[]{});
+
+        String output = out.toString();
+        assertTrue(output.contains("Tu Índice de Masa Corporal (IMC) es: 24.22"));
+        assertTrue(output.contains("Clasificación: Peso normal"));
+
+        System.setIn(System.in);
+        System.setOut(System.out);
     }
 }
