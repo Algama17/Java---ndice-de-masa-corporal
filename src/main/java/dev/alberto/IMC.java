@@ -1,5 +1,7 @@
 package dev.alberto;
 
+import java.util.Locale;
+import java.util.Scanner;
 
 public class IMC {
     public static double calculatePeso(double weight, double height) {
@@ -30,5 +32,27 @@ public class IMC {
         } else {
             return "Obesidad mórbida";
         }
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+
+        System.out.print("Ingresa tu peso en kilogramos: ");
+        double weight = scanner.nextDouble();
+
+        System.out.print("Ingresa tu altura en metros: ");
+        double height = scanner.nextDouble();
+
+        try {
+            double imc = calculatePeso(weight, height);
+
+            String category = classifyIMC(imc);
+
+            System.out.println("Tu Índice de Masa Corporal (IMC) es: " + imc);
+            System.out.println("Clasificación: " + category);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        scanner.close();
     }
 }
